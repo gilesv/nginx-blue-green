@@ -97,6 +97,7 @@ resource "aws_launch_template" "nginx_template" {
   image_id    = data.aws_ami.al2023.id
   instance_type = "t2.micro"
   key_name = "MyKeyPair"
+  vpc_security_group_ids = [aws_security_group.allow_http.id]
 
   iam_instance_profile {
     name = aws_iam_instance_profile.nginx_instance_profile.name
