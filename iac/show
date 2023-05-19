@@ -1,0 +1,166 @@
+# data.aws_ami.amzn-linux-2023-ami:
+data "aws_ami" "amzn-linux-2023-ami" {
+    architecture          = "x86_64"
+    arn                   = "arn:aws:ec2:us-east-1::image/ami-0889a44b331db0194"
+    block_device_mappings = [
+        {
+            device_name  = "/dev/xvda"
+            ebs          = {
+                "delete_on_termination" = "true"
+                "encrypted"             = "false"
+                "iops"                  = "3000"
+                "snapshot_id"           = "snap-06c467df960bc252f"
+                "throughput"            = "125"
+                "volume_size"           = "8"
+                "volume_type"           = "gp3"
+            }
+            no_device    = ""
+            virtual_name = ""
+        },
+    ]
+    boot_mode             = "uefi-preferred"
+    creation_date         = "2023-05-01T19:17:58.000Z"
+    deprecation_time      = "2023-07-30T19:18:00.000Z"
+    description           = "Amazon Linux 2023 AMI 2023.0.20230503.0 x86_64 HVM kernel-6.1"
+    ena_support           = true
+    hypervisor            = "xen"
+    id                    = "ami-0889a44b331db0194"
+    image_id              = "ami-0889a44b331db0194"
+    image_location        = "amazon/al2023-ami-2023.0.20230503.0-kernel-6.1-x86_64"
+    image_owner_alias     = "amazon"
+    image_type            = "machine"
+    imds_support          = "v2.0"
+    include_deprecated    = false
+    most_recent           = true
+    name                  = "al2023-ami-2023.0.20230503.0-kernel-6.1-x86_64"
+    owner_id              = "137112412989"
+    owners                = [
+        "amazon",
+    ]
+    platform_details      = "Linux/UNIX"
+    product_codes         = []
+    public                = true
+    root_device_name      = "/dev/xvda"
+    root_device_type      = "ebs"
+    root_snapshot_id      = "snap-06c467df960bc252f"
+    sriov_net_support     = "simple"
+    state                 = "available"
+    state_reason          = {
+        "code"    = "UNSET"
+        "message" = "UNSET"
+    }
+    tags                  = {}
+    usage_operation       = "RunInstances"
+    virtualization_type   = "hvm"
+
+    filter {
+        name   = "name"
+        values = [
+            "al2023-ami-2023.*-x86_64",
+        ]
+    }
+}
+
+# aws_security_group.allow_http:
+resource "aws_security_group" "allow_http" {
+    arn         = "arn:aws:ec2:us-east-1:941533325407:security-group/sg-0f6afa0d8219a9a49"
+    description = "launch-wizard-1 created 2023-05-18T21:00:36.799Z"
+    egress      = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = ""
+            from_port        = 0
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "-1"
+            security_groups  = []
+            self             = false
+            to_port          = 0
+        },
+    ]
+    id          = "sg-0f6afa0d8219a9a49"
+    ingress     = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = ""
+            from_port        = 22
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 22
+        },
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = ""
+            from_port        = 80
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 80
+        },
+    ]
+    name        = "launch-wizard-1"
+    owner_id    = "941533325407"
+    tags        = {}
+    tags_all    = {}
+    vpc_id      = "vpc-00e6c977d99d0b07e"
+}
+
+# aws_subnet.default:
+resource "aws_subnet" "default" {
+    arn                                            = "arn:aws:ec2:us-east-1:941533325407:subnet/subnet-03d4f35ac0bfceb6e"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1a"
+    availability_zone_id                           = "use1-az2"
+    cidr_block                                     = "172.31.80.0/20"
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-03d4f35ac0bfceb6e"
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = true
+    owner_id                                       = "941533325407"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {}
+    tags_all                                       = {}
+    vpc_id                                         = "vpc-00e6c977d99d0b07e"
+}
+
+# aws_vpc.main:
+resource "aws_vpc" "main" {
+    arn                                  = "arn:aws:ec2:us-east-1:941533325407:vpc/vpc-00e6c977d99d0b07e"
+    assign_generated_ipv6_cidr_block     = false
+    cidr_block                           = "172.31.0.0/16"
+    default_network_acl_id               = "acl-07f320c7ecc262336"
+    default_route_table_id               = "rtb-0d32ef95090024f90"
+    default_security_group_id            = "sg-069972174090a7da4"
+    dhcp_options_id                      = "dopt-0bc9e63984ac27269"
+    enable_classiclink                   = false
+    enable_classiclink_dns_support       = false
+    enable_dns_hostnames                 = true
+    enable_dns_support                   = true
+    enable_network_address_usage_metrics = false
+    id                                   = "vpc-00e6c977d99d0b07e"
+    instance_tenancy                     = "default"
+    ipv6_netmask_length                  = 0
+    main_route_table_id                  = "rtb-0d32ef95090024f90"
+    owner_id                             = "941533325407"
+    tags                                 = {
+        "Name" = "main"
+    }
+    tags_all                             = {
+        "Name" = "main"
+    }
+}
