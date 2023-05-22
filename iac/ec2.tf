@@ -134,3 +134,8 @@ resource "aws_autoscaling_group" "nginx_asg" {
   }
 }
 
+resource "aws_autoscaling_attachment" "nginx_attachment" {
+  autoscaling_group_name = aws_autoscaling_group.nginx_asg.name
+  lb_target_group_arn = aws_lb_target_group.nginx_tg.arn
+}
+

@@ -22,7 +22,7 @@ resource "aws_iam_role" "codedeploy_role" {
   )
 }
 
-resource "aws_codedeploy_deployment_group" "nginx-group2" {
+resource "aws_codedeploy_deployment_group" "nginx-group" {
     app_name               = aws_codedeploy_app.nginx.name
     deployment_group_name  = "nginx-dg2"
     autoscaling_groups     = [
