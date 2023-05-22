@@ -98,6 +98,17 @@ resource "aws_launch_template" "nginx_template" {
   instance_type = "t2.micro"
   key_name = "MyKeyPair"
   vpc_security_group_ids = [aws_security_group.allow_http.id]
+  user_data = base64encode(<<-SCRIPT
+    #!/bin/bash
+    sudo yum update -y
+    sudo yum install -y ruby
+    sudo yum install -y wget
+    wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+    chmod +x ./install
+    sudo ./install auto
+    sudo service codedeploy-agent status
+  SCRIPT
+  )
 
   iam_instance_profile {
     name = aws_iam_instance_profile.nginx_instance_profile.name
