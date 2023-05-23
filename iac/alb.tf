@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "nginx_tg" {
   protocol = "HTTP"
   target_type = "instance"
   vpc_id   = aws_vpc.main.id
-  
+  deregistration_delay = 5 
 }
 
 resource "aws_lb_listener" "nginx_listener" {
