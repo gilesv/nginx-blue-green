@@ -123,9 +123,9 @@ resource "aws_launch_template" "nginx_template" {
 }
 
 resource "aws_autoscaling_group" "nginx_asg" {
-  desired_capacity   = 4
-  max_size           = 4
-  min_size           = 4
+  desired_capacity   = 2
+  max_size           = 2
+  min_size           = 2
   vpc_zone_identifier = [aws_subnet.default.id, aws_subnet.default2.id]
 
   launch_template {

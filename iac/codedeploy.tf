@@ -32,18 +32,10 @@ resource "aws_codedeploy_deployment_group" "nginx-group" {
     service_role_arn       = aws_iam_role.codedeploy_role.arn
 
     auto_rollback_configuration {
-        enabled = true
-        events  = [
-            "DEPLOYMENT_FAILURE",
-            "DEPLOYMENT_STOP_ON_ALARM",
-        ]
+        enabled = false
     }
 
     blue_green_deployment_config {
-        deployment_ready_option {
-            action_on_timeout    = "CONTINUE_DEPLOYMENT"
-            wait_time_in_minutes = 0
-        }
         green_fleet_provisioning_option {
             action = "COPY_AUTO_SCALING_GROUP"
         }
