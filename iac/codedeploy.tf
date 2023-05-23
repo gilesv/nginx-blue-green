@@ -36,6 +36,10 @@ resource "aws_codedeploy_deployment_group" "nginx-group" {
     }
 
     blue_green_deployment_config {
+        deployment_ready_option {
+          action_on_timeout = "CONTINUE_DEPLOYMENT"
+          wait_time_in_minutes = 0
+        }
         green_fleet_provisioning_option {
             action = "COPY_AUTO_SCALING_GROUP"
         }
